@@ -20,11 +20,21 @@ public class AppConfiguration {
     @Bean(name="userService")
     @Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
     public UserService getUserService(){
+
+        //Use Autowired, So Spring will automatically inject UserRepository into the UserService
         UserServiceImpl service = new UserServiceImpl();
-        service.setRepository(getUserRepository());
+
+        //use Constructor injection
+        //UserServiceImpl service = new UserServiceImpl(getUserRepository());
+
+        //use Setter injection
+        //UserServiceImpl service = new UserServiceImpl();
+        //service.setRepository(getUserRepository());
         return service;
     }
 
+    // Autowired, will use this
+    // used by Setter injection and constructor injection
     @Bean(name="userRepository")
     public UserRepository getUserRepository(){
         return (new UserRepositoryImpl());
